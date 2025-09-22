@@ -1,0 +1,29 @@
+#+TITLE: Linux Tools 
+#+AUTHOR: Bastiaan
+
+* Bootable USB drives using shell
+** Format a usb drive
+#+BEGIN_SRC shell
+    # Check available drives
+    lsblk
+    # Unmount the connected usb drive (check name carefully)
+    sudo umount /dev/sdb1
+
+    # Format the drive
+    sudo mkfs.ext4 /dev/sdb
+
+    # Eject safely
+    sudo eject /dev/sdb
+
+#+END_SRC
+
+** Create bootable usb drive
+#+BEGIN_SRC shell
+    # Select ISO to create a bootable live usb on the formatted drive
+    sudo dd if=~/Downloads/nixos.iso of=/dev/sdX bs=4M status=progress oflag=sync
+
+    # Sync and eject
+    sync
+    sudo eject /dev/sdX
+
+#+END_SRC
